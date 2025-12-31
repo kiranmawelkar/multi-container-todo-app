@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Node.js Application Service
+  web-app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/my_database
+
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+# Persistent Volume to save database data
+volumes:
+  mongo-data:
