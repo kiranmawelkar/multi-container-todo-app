@@ -1,0 +1,15 @@
+- name: Setup Todo App Server
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - docker.io
+        - docker-compose
+
+    - name: Deploy Todo Application
+      command: docker-compose up -d
